@@ -21,6 +21,26 @@ this [Refer](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linu
 [{"Name":"Ubuntu-1","Limit":{"Unit":"GB","Value":1000},"Command":["sudo poweroff"]}]
 ```
 
+## Service
+
+```
+# /etc/systemd/system/traffic_monitor.service
+[Unit]
+Description=AWS Traffic Monitor
+Documentation=https://xnozo.com
+After=network.target network-online.target
+Requires=network-online.target
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/root/AWS_Traffic_Monitor/
+ExecStart=/root/AWS_Traffic_Monitor/TrafficMonitor -c config.json -l 60
+
+[Install]
+WantedBy=multi-user.target
+```
+
 # Limitation
 
 The monitor now only support the **lightsail**.
